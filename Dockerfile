@@ -17,8 +17,18 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     zlib1g-dev \
     libonig-dev \
+    curl \
+    git \
+    unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gmp gd zip soap mbstring pdo pdo_mysql
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Navigate to the application directory and install dependencies
+WORKDIR /var/www/html/application
+RUN composer install
 
 # Enable Apache modules
 RUN a2enmod rewrite
