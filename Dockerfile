@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libzip-dev \
     libxml2-dev \
-    && docker-php-ext-install gmp gd zip soap mbstring pdo pdo_mysql
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gmp gd zip soap mbstring pdo pdo_mysql
 
 # Enable Apache modules
 RUN a2enmod rewrite
