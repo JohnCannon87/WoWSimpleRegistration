@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     zlib1g-dev \
+    libonig-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gmp gd zip soap mbstring pdo pdo_mysql
 
